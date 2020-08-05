@@ -5,9 +5,14 @@ import com.sibela.mitchmodernarchitecture.retrofit.BlogRetrofit
 import com.sibela.mitchmodernarchitecture.retrofit.NetworkMapper
 import com.sibela.mitchmodernarchitecture.room.BlogDao
 import com.sibela.mitchmodernarchitecture.room.CacheMapper
+import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
+@Module
+@InstallIn(ApplicationComponent::class)
 object RepositoryModule {
 
     @Singleton
