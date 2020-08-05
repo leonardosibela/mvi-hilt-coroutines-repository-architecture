@@ -1,7 +1,8 @@
-package com.sibela.mitchmodernarchitecture
+package com.sibela.mitchmodernarchitecture.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sibela.mitchmodernarchitecture.R
 
 class MainActivity : AppCompatActivity() {
 
