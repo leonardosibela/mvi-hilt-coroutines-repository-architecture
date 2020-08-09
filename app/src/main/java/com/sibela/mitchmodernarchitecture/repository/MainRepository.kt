@@ -28,8 +28,6 @@ class MainRepository constructor(
             emit(DataState.Success(cacheMapper.mapFromEntityList(cacheBlogs)))
         } catch (exception: Exception) {
             emit(DataState.Error(exception))
-
         }
     }
-
 }
