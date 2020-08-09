@@ -6,10 +6,12 @@ import androidx.lifecycle.*
 import com.sibela.mitchmodernarchitecture.model.Blog
 import com.sibela.mitchmodernarchitecture.repository.MainRepository
 import com.sibela.mitchmodernarchitecture.util.DataState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 class MainViewModel @ViewModelInject constructor(
     private val mainRepository: MainRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
@@ -21,10 +23,9 @@ class MainViewModel @ViewModelInject constructor(
         get() = _dataState
 
     fun setStateEvent(mainStateEvent: MainStateEvent) {
-
         viewModelScope.launch {
             when (mainStateEvent) {
-                is MainStateEvent.GetBlogsEvents -> {
+                is MainStateEvent.GetBlogsEvent -> {
                     mainRepository.getBlogs()
                         .onEach { dataState ->
                             _dataState.value = dataState
@@ -42,7 +43,7 @@ class MainViewModel @ViewModelInject constructor(
 
     sealed class MainStateEvent {
 
-        object GetBlogsEvents : MainStateEvent()
+        object GetBlogsEvent : MainStateEvent()
 
         object None : MainStateEvent()
     }
