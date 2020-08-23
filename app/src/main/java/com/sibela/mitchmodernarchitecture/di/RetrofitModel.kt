@@ -34,9 +34,8 @@ object RetrofitModel {
 
     @Singleton
     @Provides
-    fun provideBlogService(retrofit: Retrofit.Builder): BlogRetrofit {
+    fun provideBlogService(retrofit: Retrofit): BlogRetrofit {
         return retrofit
-            .build()
             .create(BlogRetrofit::class.java)
     }
 }
