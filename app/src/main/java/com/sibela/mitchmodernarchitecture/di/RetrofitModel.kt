@@ -15,6 +15,8 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object RetrofitModel {
 
+    private const val BASE_URL = "https://open-api.xyz/placeholder/"
+
     @Singleton
     @Provides
     fun provideGsonBuilder(): Gson {
@@ -27,7 +29,7 @@ object RetrofitModel {
     @Provides
     fun provideRetrofit(gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://open-api.xyz/placeholder/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
