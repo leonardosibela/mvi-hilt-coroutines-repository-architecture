@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sibela.mitchmodernarchitecture.R
 import com.sibela.mitchmodernarchitecture.model.Blog
 import com.sibela.mitchmodernarchitecture.util.DataState
@@ -12,13 +13,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+private const val TAG: String = "AppDebug"
+
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val TAG: String = "AppDebug"
-
     private val viewModel: MainViewModel by viewModels()
+    private var blogListAdapter = BlogListAdapter(listOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         subscribeObservers()
         viewModel.setStateEvent(MainViewModel.MainStateEvent.GetBlogsEvent)
+        setupRecyclerView()
     }
 
     private fun subscribeObservers() {
@@ -46,19 +49,23 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun appendBlogTitles(blogs: List<Blog>) {
-        val stringBuilder = StringBuilder()
-        blogs.forEach { blog ->
-            stringBuilder.append(blog.title + "\n")
-            text.text = stringBuilder.toString()
+    private fun setupRecyclerView() {
+        blogs_recycler.apply {
+            setHasFixedSize(true)
+            adapter = blogListAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
         }
+    }
+
+    private fun appendBlogTitles(blogs: List<Blog>) {
+        blogListAdapter.blogs = blogs
     }
 
     private fun displayError(message: String?) {
         if (message != null) {
-            text.text = message
+            error_message.text = message
         } else {
-            text.text = "Unknown error"
+            error_message.setText(R.string.message_error_unknown)
         }
     }
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mitch Modern Architecture</string>
+    <string name="message_error_unknown">Unknown error</string>
 </resources>
