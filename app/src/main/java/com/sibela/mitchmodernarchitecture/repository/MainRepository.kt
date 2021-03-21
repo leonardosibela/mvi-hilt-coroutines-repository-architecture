@@ -19,7 +19,7 @@ class MainRepository constructor(
 
     suspend fun getBlogs(): Flow<DataState<List<Blog>>> = flow {
         emit(DataState.Loading)
-        delay(1000) // just used to see the loading
+        delay(1_000) // just used to see the loading
         try {
             val networkBlogs = blogRetrofit.getAll()
             val blogs = networkMapper.mapFromEntityList(networkBlogs)
